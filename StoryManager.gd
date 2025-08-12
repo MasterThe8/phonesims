@@ -1,57 +1,43 @@
 extends Node
 
-
+# Signals
 signal new_chat(character_id: String, chat_item: Dictionary)
 signal waiting_for_choice(character_id: String, options: Array)
 signal story_state_changed(state_name: String, data: Dictionary)
 
-
-File paths
-
+# File paths
 var autosave_path := "user://assets/savegame/autosave.json"
 var chapter_folder := "res://assets/chapter1/"
 
-
-Player data
-
+# Player data
 var player := {}
 var current_state := "idle"
 var current_character := ""
 var current_chat_id := ""
 var is_waiting_for_choice := false
 
-
-Story flow control
-
+# Story flow control
 var story_queue := []
 var is_story_running := false
-
 
 func _ready():
 	load_autosave()
 
+# -------------------------
+# Story Flow Control Methods
+# -------------------------
 
--------------------------
-
-Story Flow Control Methods
-
--------------------------
-
-Start a story sequence
-
+# Start a story sequence
 func start_story(sequence_name: String = "default"):
 	load_autosave()
 	is_story_running = true
 	current_state = "running"
 	emit_signal("story_state_changed", "started", {"sequence": sequence_name})
 	
-	# If we have a specific sequence to run, we could load it here
-	# For now, we'll just process the queue if it exists
+	# Process the queue
 	_process_story_queue()
 
-
-Add a delay to the story queue
-
+# Add a delay to the story queue
 func add_delay(seconds: float) -> StoryManager:
 	story_queue.append({
 		"type": "delay",
@@ -59,9 +45,7 @@ func add_delay(seconds: float) -> StoryManager:
 	})
 	return self
 
-
-Add a message to the story queue
-
+# Add a message to the story queue
 func add_message(character_id: String, message_id: String, content: String = "") -> StoryManager:
 	var message_data = {
 		"id": message_id,
@@ -84,9 +68,7 @@ func add_message(character_id: String, message_id: String, content: String = "")
 	})
 	return self
 
-
-Add choices for the player to select from
-
+# Add choices for the player to select from
 func add_choices(character_id: String, prompt: String, options: Array) -> StoryManager:
 	story_queue.append({
 		"type": "choices",
@@ -96,18 +78,14 @@ func add_choices(character_id: String, prompt: String, options: Array) -> StoryM
 	})
 	return self
 
-
-Save current progress
-
+# Save current progress
 func add_save_progress() -> StoryManager:
 	story_queue.append({
 		"type": "save"
 	})
 	return self
 
-
-Execute a custom function
-
+# Execute a custom function
 func add_custom_action(callable: Callable) -> StoryManager:
 	story_queue.append({
 		"type": "custom",
@@ -115,9 +93,7 @@ func add_custom_action(callable: Callable) -> StoryManager:
 	})
 	return self
 
-
-Process the next item in the story queue
-
+# Process the next item in the story queue
 func _process_story_queue():
 	if story_queue.is_empty():
 		is_story_running = false
@@ -177,18 +153,13 @@ func _process_story_queue():
 				await item.get("callable").call()
 			_process_story_queue()
 
-
-Handle player's choice selection
-
+# Handle player's choice selection
 func handle_choice(option_index: int):
 	if not is_waiting_for_choice:
 		push_error("Received choice but not waiting for one")
 		return
 	
 	is_waiting_for_choice = false
-	
-	# Here you can add logic to branch the story based on the choice
-	# For now, we'll just continue the story
 	
 	# Record the choice in player data
 	if not player.has("choices"):
@@ -199,15 +170,11 @@ func handle_choice(option_index: int):
 	# Continue processing the story queue
 	_process_story_queue()
 
+# -------------------------
+# Save/Load Methods
+# -------------------------
 
--------------------------
-
-Save/Load Methods
-
--------------------------
-
-Save current progress
-
+# Save current progress
 func save_progress():
 	var dir = DirAccess.open("user://assets/savegame/")
 	if not dir:
@@ -227,11 +194,9 @@ func save_progress():
 	else:
 		push_error("Failed to save progress: " + str(FileAccess.get_open_error()))
 
-
-Load saved progress
-
+# Load saved progress
 func load_autosave():
-	var file : FileAccess = null
+	var file: FileAccess = null
 	if FileAccess.file_exists(autosave_path):
 		file = FileAccess.open(autosave_path, FileAccess.READ)
 	else:
@@ -239,47 +204,41 @@ func load_autosave():
 		if FileAccess.file_exists(fallback):
 			file = FileAccess.open(fallback, FileAccess.READ)
 
+	if file:
+		var txt = file.get_as_text()
+		file.close()
 
-if file:
-	var txt = file.get_as_text()
-	file.close()
-
-	var parsed = JSON.parse_string(txt)
-	if parsed is Dictionary:
-		player = parsed.get("player", {})
+		var parsed = JSON.parse_string(txt)
+		if parsed is Dictionary:
+			player = parsed.get("player", {})
+		else:
+			push_error("Failed to parse autosave JSON")
 	else:
-		push_error("Failed to parse autosave JSON")
-else:
-	player = {}
+		player = {}
 
--------------------------
+# -------------------------
+# Character Data Methods
+# -------------------------
 
-Character Data Methods
-
--------------------------
-
-Load character data from JSON file
-
+# Load character data from JSON file
 func load_character_json(char_id: String) -> Dictionary:
 	var path = "%s%s.json" % [chapter_folder, char_id]
 	if not FileAccess.file_exists(path):
 		push_error("Character file not found: %s" % path)
 		return {}
 
+	var f = FileAccess.open(path, FileAccess.READ)
+	var txt = f.get_as_text()
+	f.close()
 
-var f = FileAccess.open(path, FileAccess.READ)
-var txt = f.get_as_text()
-f.close()
+	var parsed = JSON.parse_string(txt)
+	if parsed is Dictionary:
+		return parsed
+	else:
+		push_error("JSON parse error in file: %s" % path)
+		return {}
 
-var parsed = JSON.parse_string(txt)
-if parsed is Dictionary:
-	return parsed
-else:
-	push_error("JSON parse error in file: %s" % path)
-	return {}
-
-Get a specific chat item from a character
-
+# Get a specific chat item from a character
 func get_chat_item(character_id: String, chat_id: String) -> Dictionary:
 	var char_data = load_character_json(character_id)
 	for chat in char_data.get("chat", []):
@@ -287,23 +246,17 @@ func get_chat_item(character_id: String, chat_id: String) -> Dictionary:
 			return chat
 	return {}
 
+# -------------------------
+# Utility Methods
+# -------------------------
 
--------------------------
-
-Utility Methods
-
--------------------------
-
-Clear the story queue
-
+# Clear the story queue
 func clear_queue():
 	story_queue.clear()
 	is_story_running = false
 	current_state = "idle"
 
-
-Check if a specific chat has been seen
-
+# Check if a specific chat has been seen
 func has_seen_chat(character_id: String, chat_id: String) -> bool:
 	var last_seen = player.get("progress", {}).get(character_id, {}).get("last_seen_id", "")
 	var char_data = load_character_json(character_id)
@@ -322,8 +275,39 @@ func has_seen_chat(character_id: String, chat_id: String) -> bool:
 	
 	return found_target and found_last_seen
 
-
-Get player choice for a specific chat
-
+# Get player choice for a specific chat
 func get_player_choice(chat_id: String) -> int:
 	return player.get("choices", {}).get(chat_id, -1)
+
+# -------------------------
+# Unread Message Methods
+# -------------------------
+
+# Increment unread message count for a character
+func increment_unread_count(character_id: String, amount: int = 1):
+	if not player.has("unread_count"):
+		player["unread_count"] = {}
+	
+	if not player["unread_count"].has(character_id):
+		player["unread_count"][character_id] = 0
+	
+	player["unread_count"][character_id] += amount
+	save_progress()
+
+# Set unread message count for a character
+func set_unread_count(character_id: String, count: int):
+	if not player.has("unread_count"):
+		player["unread_count"] = {}
+	
+	player["unread_count"][character_id] = count
+	save_progress()
+
+# Get unread message count for a character
+func get_unread_count(character_id: String) -> int:
+	return player.get("unread_count", {}).get(character_id, 0)
+
+# Reset unread message count for a character
+func reset_unread_count(character_id: String):
+	if player.has("unread_count") and player["unread_count"].has(character_id):
+		player["unread_count"][character_id] = 0
+		save_progress()

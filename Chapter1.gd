@@ -56,3 +56,43 @@ func _build_intro_sequence():
 	# the story will continue with message g2, then g4, etc.
 	# If the player chooses "Yeah, I'm working right now." (option 1),
 	# the story will continue with message g3 and then end.
+
+# Add a new message and update unread count
+func add_new_message_with_notification(character_id: String, message_id: String):
+	# Add the message to the story queue
+	story_manager.add_message(character_id, message_id)
+	
+	# Increment the unread count for this character
+	story_manager.increment_unread_count(character_id)
+	
+	# Save progress
+	story_manager.add_save_progress()
+
+# Simulate receiving a new message when the app is "closed"
+# This can be called from anywhere to simulate a new message notification
+func simulate_new_message(character_id: String, message_id: String):
+	# Load the message content
+	var char_data = story_manager.load_character_json(character_id)
+	var message_content = ""
+	
+	for chat in char_data.get("chat", []):
+		if chat.get("id") == message_id:
+			message_content = chat.get("content", "")
+			break
+	
+	# Update player progress to record this message
+	if not story_manager.player.has("progress"):
+		story_manager.player["progress"] = {}
+	if not story_manager.player["progress"].has(character_id):
+		story_manager.player["progress"][character_id] = {}
+	
+	story_manager.player["progress"][character_id]["last_seen_id"] = message_id
+	
+	# Increment unread count
+	story_manager.increment_unread_count(character_id)
+	
+	# Save progress
+	story_manager.save_progress()
+	
+	print("New message from ", character_id, ": ", message_content)
+	return message_content

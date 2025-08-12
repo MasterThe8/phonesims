@@ -1,0 +1,208 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8qjx5p3yvdnr"]
+
+[ext_resource type="Script" path="res://HomeMessage.gd" id="1_hkplu"]
+[ext_resource type="Texture2D" uid="uid://btdw6pljjvxr3" path="res://icon/profile_yuki.png" id="2_bsmxa"]
+[ext_resource type="Texture2D" uid="uid://c8qjx5p3yvdnr" path="res://icon/profile_ren.png" id="3_dhalm"]
+[ext_resource type="Texture2D" uid="uid://b4r3g2qwxvdnm" path="res://icon/profile_keiji.png" id="4_efghi"]
+
+[node name="HomeMessage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hkplu")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1088.0
+offset_bottom = 1929.0
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+layout_mode = 0
+offset_right = 1083.0
+offset_bottom = 1919.0
+color = Color(0.0509804, 0, 0.0941176, 1)
+
+[node name="HeaderPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1083.0
+offset_bottom = 261.0
+
+[node name="Label" type="Label" parent="HeaderPanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 56.0
+offset_right = 1043.0
+offset_bottom = 202.0
+theme_override_font_sizes/font_size = 106
+text = "Messages"
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_top = 262.0
+offset_right = 1083.0
+offset_bottom = 1919.0
+
+[node name="ContactsVBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="YukiContact" type="Panel" parent="ScrollContainer/ContactsVBox"]
+custom_minimum_size = Vector2(1083, 200)
+layout_mode = 2
+
+[node name="ProfileImage" type="TextureRect" parent="ScrollContainer/ContactsVBox/YukiContact"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 160.0
+offset_bottom = 180.0
+texture = ExtResource("2_bsmxa")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="ScrollContainer/ContactsVBox/YukiContact"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 800.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 60
+text = "Yuki"
+vertical_alignment = 1
+
+[node name="BadgePanel" type="Panel" parent="ScrollContainer/ContactsVBox/YukiContact"]
+visible = false
+layout_mode = 0
+offset_left = 950.0
+offset_top = 60.0
+offset_right = 1030.0
+offset_bottom = 140.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/ContactsVBox/YukiContact/BadgePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.921569, 0.337255, 0.294118, 1)
+
+[node name="CountLabel" type="Label" parent="ScrollContainer/ContactsVBox/YukiContact/BadgePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RenContact" type="Panel" parent="ScrollContainer/ContactsVBox"]
+custom_minimum_size = Vector2(1083, 200)
+layout_mode = 2
+
+[node name="ProfileImage" type="TextureRect" parent="ScrollContainer/ContactsVBox/RenContact"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 160.0
+offset_bottom = 180.0
+texture = ExtResource("3_dhalm")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="ScrollContainer/ContactsVBox/RenContact"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 800.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 60
+text = "Ren"
+vertical_alignment = 1
+
+[node name="BadgePanel" type="Panel" parent="ScrollContainer/ContactsVBox/RenContact"]
+visible = false
+layout_mode = 0
+offset_left = 950.0
+offset_top = 60.0
+offset_right = 1030.0
+offset_bottom = 140.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/ContactsVBox/RenContact/BadgePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.921569, 0.337255, 0.294118, 1)
+
+[node name="CountLabel" type="Label" parent="ScrollContainer/ContactsVBox/RenContact/BadgePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeijiContact" type="Panel" parent="ScrollContainer/ContactsVBox"]
+custom_minimum_size = Vector2(1083, 200)
+layout_mode = 2
+
+[node name="ProfileImage" type="TextureRect" parent="ScrollContainer/ContactsVBox/KeijiContact"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 160.0
+offset_bottom = 180.0
+texture = ExtResource("4_efghi")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="ScrollContainer/ContactsVBox/KeijiContact"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 800.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 60
+text = "Keiji"
+vertical_alignment = 1
+
+[node name="BadgePanel" type="Panel" parent="ScrollContainer/ContactsVBox/KeijiContact"]
+visible = false
+layout_mode = 0
+offset_left = 950.0
+offset_top = 60.0
+offset_right = 1030.0
+offset_bottom = 140.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/ContactsVBox/KeijiContact/BadgePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.921569, 0.337255, 0.294118, 1)
+
+[node name="CountLabel" type="Label" parent="ScrollContainer/ContactsVBox/KeijiContact/BadgePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
