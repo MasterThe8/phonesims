@@ -10,21 +10,18 @@ config_version=5
 
 [application]
 
-config/name="NTR HackPhone"
-run/main_scene="uid://2js4w3e4yrd0"
-config/features=PackedStringArray("4.4", "Mobile")
+config/name="PhoneSims"
+run/main_scene="res://main_node.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 StoryManager="*res://StoryManager.gd"
-
-[display]
-
-window/size/viewport_width=1080
-window/size/viewport_height=1920
-window/stretch/mode="viewport"
+MessageManager="*res://MessageManager.gd"
+StoryLoader="*res://StoryLoader.gd"
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
