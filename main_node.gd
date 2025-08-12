@@ -14,10 +14,17 @@ func _ready():
 		story_loader = get_node("/root/StoryLoader")
 
 func _on_icon_message_pressed() -> void:
+	# Store a reference to the StoryLoader before changing scenes
+	var loader = story_loader
+	
+	# Create a timer before changing scenes
+	var timer = get_tree().create_timer(0.5)
+	
 	# Change to the message scene
 	get_tree().change_scene_to_file("res://home_message.tscn")
 	
-	# Start Chapter 1 after a short delay
-	await get_tree().create_timer(0.5).timeout
-	if story_loader:
-		story_loader.start_chapter("chapter1")
+	# Use a deferred call to start the chapter after the scene change
+	timer.timeout.connect(func():
+		if loader:
+			loader.start_chapter("chapter1")
+	)

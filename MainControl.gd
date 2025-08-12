@@ -1,7 +1,8 @@
 extends Control
 
-var message_manager = null
+var chat_bubble_scene := preload("res://ChatBubble.tscn")
 var option_buttons := []
+var message_manager = null
 
 signal option_selected(option_index: int)
 
@@ -31,6 +32,11 @@ func _ready():
 		
 		# Hide footer panel initially
 		$FooterPanel.visible = false
+		
+		# Start the story automatically after a short delay
+		get_tree().create_timer(0.5).timeout.connect(func():
+			start_story()
+		)
 
 # Start the story sequence
 func start_story():
@@ -101,8 +107,6 @@ func _on_option_pressed(option_index: int) -> void:
 	
 	if options.size() > option_index:
 		var player_text = options[option_index].get("text", "")
-		
-		# Use MessageManager to create and add the player response
 		var player_bubble = message_manager.add_message_to_container($ScrollContainer/MessagesVBox, "player", player_text)
 		
 		# Auto-scroll to the bottom
