@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://jovfm160jjnq"]
+
+[ext_resource type="Script" uid="uid://ciiwvme8im1l0" path="res://ChatBubble.gd" id="1_bisrl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bisrl"]
+bg_color = Color(0.12549, 0.513726, 0.960784, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[node name="ChatBubble" type="HBoxContainer"]
+offset_right = 604.0
+offset_bottom = 55.0
+script = ExtResource("1_bisrl")
+
+[node name="Spacer" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="Bubble" type="PanelContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bisrl")
+
+[node name="Label" type="Label" parent="MarginContainer/Bubble"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+autowrap_mode = 2

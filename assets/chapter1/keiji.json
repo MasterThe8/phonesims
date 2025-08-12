@@ -1,0 +1,33 @@
+{
+  "id": "keiji",
+  "name": "Keiji",
+  "chat": [
+    {
+      "id": "c1",
+      "type": "text",
+      "content": "The boss is asking for the project progress report.",
+      "options": [
+        {
+          "text": "Okay, I'll send it today.",
+          "next_id": "c2"
+        },
+        {
+          "text": "Not done yet, I need more time.",
+          "next_id": "c3"
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "type": "text",
+      "content": "Got it, I'll be waiting for your email.",
+      "next_id": null
+    },
+    {
+      "id": "c3",
+      "type": "text",
+      "content": "Alright, I'll let the boss know.",
+      "next_id": null
+    }
+  ]
+}

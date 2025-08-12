@@ -1,0 +1,54 @@
+{
+  "id": "yuki",
+  "name": "Yuki",
+  "chat": [
+	{
+	  "id": "g1",
+	  "type": "text",
+	  "content": "Hey babe, are you busy?",
+	  "options": [
+		{
+		  "text": "Not really, what's up?",
+		  "next_id": "g2"
+		},
+		{
+		  "text": "Yeah, I'm working right now.",
+		  "next_id": "g3"
+		}
+	  ]
+	},
+	{
+	  "id": "g2",
+	  "type": "text",
+	  "content": "I want to tell you something... but promise you won't get mad?",
+	  "next_id": "g4"
+	},
+	{
+	  "id": "g3",
+	  "type": "text",
+	  "content": "Okay, I'll tell you later when you're free.",
+	  "next_id": null
+	},
+	{
+	  "id": "g4",
+	  "type": "text",
+	  "content": "I had lunch with a male coworker earlier.",
+	  "options": [
+		{
+		  "text": "Who? Why didn't you tell me?",
+		  "next_id": "g5"
+		},
+		{
+		  "text": "Okay, no problem.",
+		  "next_id": null
+		}
+	  ]
+	},
+	{
+	  "id": "g5",
+	  "type": "text",
+	  "content": "He's just a friend, I swear.",
+	  "next_id": null
+	}
+  ]
+}

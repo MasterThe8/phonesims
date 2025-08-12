@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4bwp3mb1ggqa"]
+
+[ext_resource type="Texture2D" uid="uid://btdw6pljjvxr3" path="res://icon/profile_yuki.png" id="1_bsmxa"]
+[ext_resource type="Script" uid="uid://dhj38hprterk8" path="res://MainControl.gd" id="1_hkplu"]
+
+[node name="Main Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hkplu")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1088.0
+offset_bottom = 1929.0
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+layout_mode = 0
+offset_right = 1083.0
+offset_bottom = 1919.0
+color = Color(0.0509804, 0, 0.0941176, 1)
+
+[node name="HeaderPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1083.0
+offset_bottom = 261.0
+
+[node name="Profile Image" type="TextureRect" parent="HeaderPanel"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 19.0
+offset_right = 234.0
+offset_bottom = 236.0
+texture = ExtResource("1_bsmxa")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HeaderPanel"]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 56.0
+offset_right = 730.0
+offset_bottom = 202.0
+theme_override_font_sizes/font_size = 106
+text = "Yuki"
+vertical_alignment = 1
+
+[node name="FooterPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1579.0
+offset_right = 1084.0
+offset_bottom = 1924.0
+
+[node name="Option1" type="Button" parent="FooterPanel"]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 43.0
+offset_right = 1011.0
+offset_bottom = 168.0
+
+[node name="Option2" type="Button" parent="FooterPanel"]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 190.0
+offset_right = 1011.0
+offset_bottom = 315.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_top = 262.0
+offset_right = 1083.0
+offset_bottom = 1576.0
+
+[node name="MessagesVBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2

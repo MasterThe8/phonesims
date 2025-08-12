@@ -1,0 +1,36 @@
+{
+  "id": "ren",
+  "name": "Ren",
+  "chat": [
+    {
+      "id": "f1",
+      "type": "image",
+      "content": {
+        "src": "images/meme1.png",
+        "caption": "Dude, check out this meme 🤣"
+      },
+      "options": [
+        {
+          "text": "Haha, that's hilarious!",
+          "next_id": "f2"
+        },
+        {
+          "text": "That's lame.",
+          "next_id": "f3"
+        }
+      ]
+    },
+    {
+      "id": "f2",
+      "type": "text",
+      "content": "You know what? That actually happened in my office.",
+      "next_id": null
+    },
+    {
+      "id": "f3",
+      "type": "text",
+      "content": "Man, your sense of humor is terrible 😆",
+      "next_id": null
+    }
+  ]
+}

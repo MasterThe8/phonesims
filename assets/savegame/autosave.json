@@ -1,0 +1,28 @@
+{
+  "player": {
+	"name": "Autosave",
+	"current_chapter": "chapter1",
+	"progress": {
+	  "yuki": {
+		"last_seen_id": null,
+		"choices": [],
+		"completed": false,
+		"unread_count": 0
+	  },
+	  "ren": {
+		"last_seen_id": "f1",
+		"choices": [],
+		"completed": false,
+		"unread_count": 0
+	  },
+	  "keiji": {
+		"last_seen_id": null,
+		"choices": [],
+		"completed": false,
+		"unread_count": 0
+	  }
+	},
+	"last_save": "2025-08-10T22:15:00Z",
+	"total_playtime_seconds": 0
+  }
+}
