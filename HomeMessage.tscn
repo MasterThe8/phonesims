@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8qjx5p3yvdnr"]
+[gd_scene load_steps=5 format=3 uid="uid://dqwxvp3yvdnr"]
 
 [ext_resource type="Script" path="res://HomeMessage.gd" id="1_hkplu"]
 [ext_resource type="Texture2D" uid="uid://btdw6pljjvxr3" path="res://icon/profile_yuki.png" id="2_bsmxa"]

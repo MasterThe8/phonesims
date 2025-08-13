@@ -23,7 +23,7 @@ func _ready():
 	
 	# Connect signals for contact selection
 	for character_id in contact_nodes:
-		contact_nodes[character_id].connect("gui_input", Callable(self, "_on_contact_gui_input").bind(character_id))
+		contact_nodes[character_id].gui_input.connect(_on_contact_gui_input.bind(character_id))
 	
 	# Make panels clickable
 	for character_id in contact_nodes:
@@ -54,9 +54,13 @@ func _on_contact_pressed(character_id: String):
 	if story_loader:
 		var timer = get_tree().create_timer(0.5)
 		timer.timeout.connect(func():
-			if character_id == "yuki":
-				story_loader.start_chapter("chapter1")
-			# Add other chapters for other characters as needed
+			match character_id:
+				"yuki":
+					story_loader.start_chapter("chapter1")
+				"ren":
+					story_loader.start_chapter("chapter_ren")
+				"keiji":
+					story_loader.start_chapter("chapter_keiji")
 		)
 
 # Update unread message badges for all contacts
